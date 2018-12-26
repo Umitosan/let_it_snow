@@ -29,7 +29,8 @@ function Game(updateDur) {
   };
 
   this.resize = function() {
-    console.log('game time to resize');
+    console.log('game time to resize, making new SnowAnim');
+    this.mySnowAnim = new SnowAnim(20);
   };
 
   this.drawBG = function() { // display background over canvas

@@ -323,8 +323,9 @@ function gameLoop(timestamp) {
     myGame.drawBG();
   } else {
     myGame.draw();
-    checkWindowReadyToResize();
   }
+
+  checkWindowReadyToResize();
 
 }
 
@@ -352,20 +353,24 @@ function startGame() {
 
 window.onresize = function() {
   resizeStartTime = performance.now();
-  console.log('window resized');
 };
 
 let resizeStartTime;
 function checkWindowReadyToResize() {
   if ( (resizeStartTime !== undefined) && ((performance.now() - resizeStartTime) > 1000) ) {
     resizeStartTime = undefined;
-    console.log('window resize done');
-    CANVAS.width = window.innerWidth;
-    CANVAS.height = window.innerHeight;
-    canH = CANVAS.height;
-    canW = CANVAS.width;
+    console.log('window resize timer done');
+    resizeCanvas();
     if (myGame !== undefined) { myGame.resize(); }
   }
+}
+
+function resizeCanvas() {
+  console.log('canvas resized');
+  CANVAS.width = window.innerWidth;
+  CANVAS.height = window.innerHeight;
+  canH = CANVAS.height;
+  canW = CANVAS.width;
 }
 
 
@@ -374,8 +379,7 @@ $(document).ready(function() {
 
   CANVAS = $('#canvas')[0];
   ctx =  CANVAS.getContext('2d');
-  canH = CANVAS.height;
-  canW = CANVAS.width;
+  resizeCanvas();
   CANVAS.addEventListener("keydown",keyDown);
   CANVAS.addEventListener("keyup",keyUp);
   CANVAS.addEventListener("mousedown", mDown);
