@@ -15,7 +15,7 @@ function Game(updateDur) {
 
   this.init = function() {
     this.bg.src = 'bg1.png';
-    let sa = new SnowAnim(70);
+    let sa = new SnowAnim();
     sa.init();
     this.mySnowAnim = sa;
     this.lastUpdate = performance.now();
@@ -32,7 +32,7 @@ function Game(updateDur) {
 
   this.resize = function() {
     console.log('game time to resize, making new SnowAnim');
-    let sa = new SnowAnim(70);
+    let sa = new SnowAnim();
     sa.init();
     this.mySnowAnim = sa;
   };
