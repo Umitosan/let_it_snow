@@ -10,7 +10,7 @@ function Flake(x,y) {
   this.pattern = undefined;
 
   this.init = function() {
-    this.radius = getRandomIntInclusive(2,30);
+    this.radius = getRandomIntInclusive(5,20);
     this.pattern = this.getRandPattern(); // randPattern(size)
     this.yVel = getRandomIntInclusive(1,5) / 2;
   };

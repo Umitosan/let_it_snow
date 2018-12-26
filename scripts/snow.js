@@ -5,7 +5,7 @@ function SnowAnim(someQuantity = 100) {
   this.quantity = someQuantity;
   this.flakes = undefined;
   this.windVel = 0;
-  this.maxWindVel = 3;
+  this.maxWindVel = 1.5;
   this.windUpdateDur = 500; // ms to wait before changing wind speed
   this.xBoundOffset = 50; // extra X pixels spawn area to make animation look better as wind blows flakes from off screen
 
