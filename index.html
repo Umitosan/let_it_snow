@@ -6,25 +6,14 @@
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="scripts/helpers.js"></script>
     <script type="text/javascript" src="scripts/game.js"></script>
+    <script type="text/javascript" src="scripts/snow.js"></script>
+    <script type="text/javascript" src="scripts/flake.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto|Shrikhand" rel="stylesheet">
     <link rel="stylesheet" href="styles.css"  type="text/css" >
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>Canvas Template</title>
   </head>
   <body>
-
-    <div class="main-container">
-
-      <div class="title-container">
-        <span id="title">Game Title</span>
-      </div>
-
-      <div class="speed-container">
-        <span class="speed-label">Game Speed</span>
-        <input id="speed-slider" type="range" name="speed-slider" min="1" max="200" step="1" value="3">
-        <input id="speed-input" type="number" name="speed-input" value="3" min="1" max="200">
-        <span class="speed-label">(updates/sec)</span>
-      </div>
 
       <div class="status-container">
         <div class="mode-container">
@@ -90,16 +79,7 @@
         <button id="reset-btn" type="button" name="reset">RESET</button>
       </div>
 
-      <div class="canvas-container">
-        <canvas id="canvas" tabindex='1' width="800" height="600"></canvas>
-      </div>
+      <canvas id="canvas" tabindex='1' width="1000" height="800"></canvas>
 
-    </div>
-  <footer>
-    <div class="social-container">
-      <a href="https://github.com/Umitosan/canvas-game-template">
-        <img id="git-img" border="0" src="giticon.png" alt="github-icon">
-      </a>
-    </div>
-  </footer>
+
 </html>

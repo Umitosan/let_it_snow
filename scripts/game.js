@@ -9,26 +9,27 @@ function Game(updateDur) {
   this.updateDuration = updateDur; // milliseconds duration between update()
   this.paused = false;
   this.bg = new Image();
-  this.boxy = undefined;
   this.pausedTxt = undefined;
   this.mode = 'init';
+  this.mySnowAnim = undefined;
 
   this.init = function() {
     this.bg.src = 'bg1.png';
-    this.boxy = new Box(20,20,myColors.red,20,1);
+    this.mySnowAnim = new SnowAnim(20);
     this.lastUpdate = performance.now();
   };
 
   this.pauseIt = function() {
     myGame.paused = true;
-    // this.pausedTxt.show = true;
   };
   this.unpauseIt = function() {
     myGame.paused = false;
-    // this.pausedTxt.show = false;
-    // this prevents pac from updating many times after UNpausing
     this.lastUpdate = performance.now();
     this.timeGap = 0;
+  };
+
+  this.resize = function() {
+    console.log('game time to resize');
   };
 
   this.drawBG = function() { // display background over canvas
@@ -36,8 +37,8 @@ function Game(updateDur) {
     ctx.drawImage(this.bg,0,0,CANVAS.width,CANVAS.height);
   };
 
-  this.draw = function() {  // draw everything!
-    this.boxy.draw();
+  this.draw = function() {
+
   }; // end draw
 
   this.update = function() {
@@ -51,7 +52,7 @@ function Game(updateDur) {
                 //   console.log('timesToUpdate = ', timesToUpdate);
                 // }
                 // general update area
-                this.boxy.update();
+                // this.boxy.update();
               }
               this.lastUpdate = performance.now();
             } // end if

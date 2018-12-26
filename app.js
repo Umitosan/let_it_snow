@@ -8,7 +8,7 @@ var CANVAS,
     myGame;
 var myColors = new Colors();
 
-var defaultSimSpeed = 100;
+var defaultSimSpeed = 70;
 
 function Colors() {
   this.black = 'rgba(0, 0, 0, 1)';
@@ -323,18 +323,56 @@ function gameLoop(timestamp) {
     myGame.drawBG();
   } else {
     myGame.draw();
+    checkWindowReadyToResize();
   }
 
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+// START
+//////////////////////////////////////////////////////////////////////////////////
+function startGame() {
+  if (myGame.mode === 'draw') {
+    myGame.mode = 'sim';
+    console.log('mode now sim');
+    State.gameStarted = true;
+    $('#mode-current-status')[0].innerText = 'simulate';
+    myGame.updateDuration = (1000/defaultSimSpeed);
+    myGame.lastUpdate = performance.now();
+  } else {
+    console.log('must reset before starting again');
+  }
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+// window resize / canvas resize
+//////////////////////////////////////////////////////////////////////////////////
+
+window.onresize = function() {
+  resizeStartTime = performance.now();
+  console.log('window resized');
+};
+
+let resizeStartTime;
+function checkWindowReadyToResize() {
+  if ( (resizeStartTime !== undefined) && ((performance.now() - resizeStartTime) > 1000) ) {
+    resizeStartTime = undefined;
+    console.log('window resize done');
+    CANVAS.width = window.innerWidth;
+    CANVAS.height = window.innerHeight;
+    canH = CANVAS.height;
+    canW = CANVAS.width;
+    if (myGame !== undefined) { myGame.resize(); }
+  }
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function() {
 
-  function test() {
-    console.log('test works');
-  }
-
-  CANVAS =  $('#canvas')[0];
+  CANVAS = $('#canvas')[0];
   ctx =  CANVAS.getContext('2d');
   canH = CANVAS.height;
   canW = CANVAS.width;
@@ -351,9 +389,6 @@ $(document).ready(function() {
       $("#coords-y").text(State.mouseY);
   }, false);
 
-  //INPUT
-  var leftMouseDown = false;
-
   // this is to correct for canvas blurryness on single pixel wide lines etc
   // important when animating to reduce rendering artifacts and other oddities
   // ctx.translate(0.5, 0.5);
@@ -368,19 +403,9 @@ $(document).ready(function() {
 
   $('#start-btn').click(function() {
     console.log("start button clicked");
-    if (myGame.mode === 'draw') {
-      myGame.mode = 'sim';
-      console.log('mode now sim');
-      State.gameStarted = true;
-      $('#mode-current-status')[0].innerText = 'simulate';
-      let v = $('#speed-slider').val();
-      $('#speed-input').prop("value", v);
-      myGame.updateDuration = (1000/v);
-      myGame.lastUpdate = performance.now();
-    } else {
-      console.log('must reset before starting again');
-    }
+    startGame();
   });
+
 
   $('#reset-btn').click(function() {
     console.log("reset button clicked");
@@ -403,28 +428,6 @@ $(document).ready(function() {
     }
   });
 
-  //INPUT
-  $('#speed-slider').mousedown(function(e1) {
-    leftMouseDown = true;
-  }).mouseup(function(e2) {
-    leftMouseDown = false;
-  });
-  $('#speed-input').on('change', function(e) {
-    let v = this.value;
-    $('#speed-slider').prop("value", v);
-    if (myGame.mode === 'sim') {
-      myGame.updateDuration = (1000/v);
-    }
-  });
-
-  $('#speed-slider').mousemove(function(e) {
-    if (leftMouseDown === true) {
-      let v = this.value;
-      $('#speed-input').prop("value", v);
-      if (myGame.mode === 'sim') {
-        myGame.updateDuration = (1000/v);
-      }
-    }
-  });
+  // startGame();
 
 });
