@@ -14,7 +14,7 @@ function Game(updateDur) {
   this.mySnowAnim = undefined;
 
   this.init = function() {
-    this.bg.src = 'bg1.png';
+    this.bg.src = 'hood.jpg';
     let sa = new SnowAnim();
     sa.init();
     this.mySnowAnim = sa;
@@ -43,6 +43,7 @@ function Game(updateDur) {
   };
 
   this.draw = function() {
+    this.drawBG();
     this.mySnowAnim.draw();
   }; // end draw
 
