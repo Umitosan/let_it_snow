@@ -15,7 +15,9 @@ function Game(updateDur) {
 
   this.init = function() {
     this.bg.src = 'bg1.png';
-    this.mySnowAnim = new SnowAnim(20);
+    let sa = new SnowAnim(70);
+    sa.init();
+    this.mySnowAnim = sa;
     this.lastUpdate = performance.now();
   };
 
@@ -30,7 +32,9 @@ function Game(updateDur) {
 
   this.resize = function() {
     console.log('game time to resize, making new SnowAnim');
-    this.mySnowAnim = new SnowAnim(20);
+    let sa = new SnowAnim(70);
+    sa.init();
+    this.mySnowAnim = sa;
   };
 
   this.drawBG = function() { // display background over canvas
@@ -39,7 +43,7 @@ function Game(updateDur) {
   };
 
   this.draw = function() {
-
+    this.mySnowAnim.draw();
   }; // end draw
 
   this.update = function() {
@@ -53,7 +57,7 @@ function Game(updateDur) {
                 //   console.log('timesToUpdate = ', timesToUpdate);
                 // }
                 // general update area
-                // this.boxy.update();
+                this.mySnowAnim.update();
               }
               this.lastUpdate = performance.now();
             } // end if

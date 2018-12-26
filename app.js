@@ -95,41 +95,6 @@ function updateKeysTotal() {
   State.totalKeysDown = total;
 }
 
-function Box(x,y,color,size,vel) {
-  this.x = x;
-  this.y = y;
-  this.color = color;
-  this.size =  size;
-  this.xVel = vel;
-  this.yVel = vel;
-
-  this.draw = function() {
-    ctx.beginPath();
-    ctx.rect(this.x,this.y,this.size,this.size);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    // ctx.stroke();
-  };
-
-  this.update = function() {
-    if ((this.xVel > 0) && ((this.x + this.size + this.xVel) > canW)) {
-      this.xVel *= -1;
-    }
-    if ((this.xVel < 0) && ((this.x + this.xVel) < 0)) {
-      this.xVel *= -1;
-    }
-    if ((this.yVel > 0) && ((this.y + this.size + this.yVel) > canH)) {
-      this.yVel *= -1;
-    }
-    if ((this.yVel < 0) && ((this.y + this.yVel) < 0)) {
-      this.yVel *= -1;
-    }
-    this.x += this.xVel;
-    this.y += this.yVel;
-  };
-
-} // end box
-
 //////////////////////////////////////////////////////////////////////////////////
 // KEYBOARD INPUT
 //////////////////////////////////////////////////////////////////////////////////
@@ -337,7 +302,7 @@ function startGame() {
     myGame.mode = 'sim';
     console.log('mode now sim');
     State.gameStarted = true;
-    $('#mode-current-status')[0].innerText = 'simulate';
+    // $('#mode-current-status')[0].innerText = 'simulate';
     myGame.updateDuration = (1000/defaultSimSpeed);
     myGame.lastUpdate = performance.now();
   } else {
@@ -405,33 +370,33 @@ $(document).ready(function() {
   State.gameStarted = false;
   myGame.mode = 'draw';
 
-  $('#start-btn').click(function() {
-    console.log("start button clicked");
-    startGame();
-  });
+  // $('#start-btn').click(function() {
+  //   console.log("start button clicked");
+  //   startGame();
+  // });
+  //
+  //
+  // $('#reset-btn').click(function() {
+  //   console.log("reset button clicked");
+  //   generalLoopReset();
+  //   State.loopRunning = true;
+  //   State.gameStarted = false;
+  //   myGame.mode = 'draw';
+  //   $('#pause-btn')[0].innerText = 'PAUSE';
+  //   // $('#mode-current-status')[0].innerText = 'draw';
+  // });
+  //
+  // $('#pause-btn').click(function() {
+  //   console.log("pause button clicked");
+  //   if (myGame.paused === false) {
+  //     myGame.pauseIt();
+  //     $('#pause-btn')[0].innerText = 'UN-PAUSE';
+  //   } else if (myGame.paused === true) {
+  //     myGame.unpauseIt();
+  //     $('#pause-btn')[0].innerText = 'PAUSE';
+  //   }
+  // });
 
-
-  $('#reset-btn').click(function() {
-    console.log("reset button clicked");
-    generalLoopReset();
-    State.loopRunning = true;
-    State.gameStarted = false;
-    myGame.mode = 'draw';
-    $('#pause-btn')[0].innerText = 'PAUSE';
-    $('#mode-current-status')[0].innerText = 'draw';
-  });
-
-  $('#pause-btn').click(function() {
-    console.log("pause button clicked");
-    if (myGame.paused === false) {
-      myGame.pauseIt();
-      $('#pause-btn')[0].innerText = 'UN-PAUSE';
-    } else if (myGame.paused === true) {
-      myGame.unpauseIt();
-      $('#pause-btn')[0].innerText = 'PAUSE';
-    }
-  });
-
-  // startGame();
+  startGame();
 
 });
