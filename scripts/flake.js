@@ -88,7 +88,7 @@ function FlakeType2(x,y) {
     this.pattern = this.getRandPattern(); // randPattern(size)
     this.yVel = getRandomIntInclusive(1,5) / 2;
     this.curFlakeAngle = getRandomIntInclusive(5,30);  // vary the rotation of the flake each time
-    this.rotationVel = getRandomIntInclusive(-1,1) * 0.03;  // vary the rotation speed
+    this.rotationVel = getRandomIntInclusive(0,2) * 0.01;  // vary the rotation speed
   };
 
   this.getRandPattern = function() {
@@ -109,7 +109,7 @@ function FlakeType2(x,y) {
     ctx.fillRect(0,0,pixelSize,pixelSize); // x y width height
     for (let i = 0; i < this.pattern.length; i++) {
       let offset = this.pattern[i];
-      // 1 60 degree face
+      // 1x 60 degree flake face face
       for (let j = 0; j < 6; j++) {
         ctx.rotate((j*60) * ( Math.PI / 180) + this.curFlakeAngle);
         ctx.beginPath();
@@ -124,10 +124,15 @@ function FlakeType2(x,y) {
     ctx.restore();
   };
 
-  this.update = function() {
+  this.update = function(windVel) {
     this.x += this.xVel;
     this.y += this.yVel;
-    this.curFlakeAngle += this.rotationVel;
+    if (windVel < 0 ) {
+      this.rotationVel = -Math.abs(this.rotationVel);
+    } else {
+      this.rotationVel = Math.abs(this.rotationVel);
+    }
+    this.curFlakeAngle += (this.rotationVel) + (windVel * 0.01);
   };
 
 } // END FLAKETYPE1

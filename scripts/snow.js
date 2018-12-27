@@ -6,7 +6,7 @@ function SnowAnim(someQuantity = 100) {
   this.flakes = undefined;
   this.windVel = 0;
   this.maxWindVel = 1.5;
-  this.windUpdateDur = 500; // ms to wait before changing wind speed
+  this.windUpdateDur = 1000; // ms to wait before changing wind speed
   this.xBoundOffset = 50; // extra X pixels spawn area to make animation look better as wind blows flakes from off screen
 
   this.init = function() {
@@ -48,8 +48,8 @@ function SnowAnim(someQuantity = 100) {
   };
 
   this.update = function() {
-    if ((performance.now() % this.windUpdateDur) <= 17) {
-      if (getRandomIntInclusive(1,2) === 1) {
+    if ((performance.now() % this.windUpdateDur) <= 18) {
+      if (getRandomIntInclusive(1,2) === 1) { // randomizer so only half the time a new windVel is obtained
         this.windVel += getRandomIntInclusive(-1,1) * 0.5;
         if (this.windVel >= this.maxWindVel) { // control max wind velocity
           this.windVel = this.maxWindVel;
@@ -62,7 +62,7 @@ function SnowAnim(someQuantity = 100) {
     }
     this.applyWind();
     for (let i = 0; i < this.flakes.length; i++) {
-      this.flakes[i].update();
+      this.flakes[i].update(this.windVel);
       // check bounds and destroy/create new flakes
       if ( (this.flakes[i].y > canH) || (this.flakes[i].x > (canW+this.xBoundOffset)) || (this.flakes[i].x < -this.xBoundOffset) ) {
         this.flakes.splice(i,1);
