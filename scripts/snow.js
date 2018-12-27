@@ -27,7 +27,8 @@ function SnowAnim(someQuantity = 100) {
     } else {
       console.log('invalid addFlake args');
     }
-    let newF = new Flake(randX,randY);
+    // let newF = new FlakeType1(randX,randY);
+    let newF = new FlakeType2(randX,randY);
     newF.init();
     this.flakes.push( newF );
   };
